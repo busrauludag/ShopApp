@@ -6,7 +6,7 @@ import ProductItem from './../../components/shop/ProductItem';
 
 import Colors from './../../constants/colors';
 
-const ProductOverwievScreen = () => {
+const ProductOverwievScreen = props => {
 
   const products = useSelector(state => state.products.availableProducts);
 
@@ -22,7 +22,13 @@ const ProductOverwievScreen = () => {
               image={itemData.item.imageUrl}
               title={itemData.item.title}
               price={itemData.item.price}
-              onViewDetail={() => { }}
+              onViewDetail={() => {
+                // props.navigation.navigate({ routeName: 'ProductDetail' });
+                props.navigation.navigate('ProductDetail', {
+                  productId: itemData.item.id,
+                  productTitle: itemData.item.title
+                });
+              }}
               onAddToCart={() => { }}
             />
           )
