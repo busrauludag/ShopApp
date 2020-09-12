@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
+
+import ProductItem from './../../components/shop/ProductItem';
 
 import Colors from './../../constants/colors';
 
@@ -13,9 +15,16 @@ const ProductOverwievScreen = () => {
       <FlatList
         data={products}
         keyExtractor={item => item.id}
+        style={styles.listContainer}
         renderItem={itemData => {
           return (
-            <Text>{itemData.item.title}</Text>
+            <ProductItem
+              image={itemData.item.imageUrl}
+              title={itemData.item.title}
+              price={itemData.item.price}
+              onViewDetail={() => { }}
+              onAddToCart={() => { }}
+            />
           )
         }}
       />
@@ -36,6 +45,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.white,
   },
+  listContainer: {
+    width: '100%'
+  }
 });
 
 export default ProductOverwievScreen;
