@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   price: {
+    fontFamily: 'open-sans-bold',
     fontSize: 20,
     textAlign: 'center',
     color: Colors.darkGrey,
