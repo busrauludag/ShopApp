@@ -1,14 +1,17 @@
 import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import ProductItem from './../../components/shop/ProductItem';
+import * as cartActions from './../../store/actions/cart';
 
 import Colors from './../../constants/colors';
 
 const ProductOverwievScreen = props => {
 
   const products = useSelector(state => state.products.availableProducts);
+
+  const dispatch = useDispatch();
 
   return (
     <View style={styles.container}>
@@ -29,7 +32,9 @@ const ProductOverwievScreen = props => {
                   productTitle: itemData.item.title
                 });
               }}
-              onAddToCart={() => { }}
+              onAddToCart={() => { 
+                dispatch(cartActions.addToCart(itemData.item)); 
+               }}
             />
           )
         }}
