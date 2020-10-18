@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, ScrollView, Text, TextInput, StyleSheet, Platform } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux'; 
 
 import HeaderButton from './../../components/UI/HeaderButton';
 
 import Colors from './../../constants/colors';
+
+import * as productActions from './../../store/actions/products';
 
 const EditProductScreen = (props) => {
   const prodId = props.navigation.getParam('productId');
@@ -13,10 +15,34 @@ const EditProductScreen = (props) => {
     state.products.userProducts.find(prod => prod.id === prodId)
   );
 
+  const dispatch = useDispatch();
+
   const [title, setTitle] = useState(editedProduct ? editedProduct.title : '');
   const [imageUrl, setImageUrl] = useState(editedProduct ? editedProduct.imageUrl : '');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState(editedProduct ? editedProduct.description : '');
+
+  const submitHandler = useCallback(() => {
+    if(editedProduct) {
+      dispatch(productActions.updateProduct(
+        prodId,
+        title,
+        description,
+        imageUrl
+      ))
+    } else {
+      dispatch(productActions.createProduct(
+        title,
+        description,
+        imageUrl,
+        +price // to convert number type
+      ))
+    }
+  }, [dispatch, prodId, title, description, imageUrl, price]);
+
+  useEffect(() => {
+    props.navigation.setParams({ sunmit: submitHandler });
+  }, [submitHandler]);
 
   return (
     <ScrollView>
@@ -61,6 +87,7 @@ const EditProductScreen = (props) => {
 };
 
 EditProductScreen.navigationOptions = navData => {
+  const submitFn = navData.navigation.getParam('submit');
   return {
     headerTitle: navData.navigation.getParam('productId') ? 'Edit Product' : 'Add Product',
     headerRight: (
@@ -68,9 +95,7 @@ EditProductScreen.navigationOptions = navData => {
         <Item
           title='Save'
           iconName={Platform.OS == 'android' ? 'md-checkmark' : 'ios-checkmark'}
-          onPress={() => {
-
-          }}
+          onPress={submitFn}
         />
       </HeaderButtons>
     )
