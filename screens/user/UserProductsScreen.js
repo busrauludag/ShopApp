@@ -8,10 +8,15 @@ import ProductItem from './../../components/shop/ProductItem';
 import * as productActions from './../../store/actions/products';
 
 import Colors from './../../constants/colors';
+import { accessibilityProps } from 'react-native-paper/lib/typescript/src/components/MaterialCommunityIcon';
 
-const UserProductScreen = () => {
+const UserProductScreen = (props) => {
   const userProducts = useSelector(state => state.products.userProducts);
   const dispatch = useDispatch();
+
+  const editProductHandler = (id) => {
+    props.navigation.navigate('EditProduct', { productId: id });
+  }
 
   return (
     <FlatList
@@ -22,13 +27,15 @@ const UserProductScreen = () => {
           image={itemData.item.imageUrl}
           title={itemData.item.title}
           price={itemData.item.price}
-          onSelect={() => { }}
+          onSelect={() => {
+            editProductHandler(itemData.item.id)
+          }}
         >
           <Button
             color={Colors.primary}
             title='Edit'
             onPress={() => {
-              
+              editProductHandler(itemData.item.id)
             }}
           />
           <Button
@@ -58,6 +65,17 @@ UserProductScreen.navigationOptions = navData => {
         />
       </HeaderButtons>
     ),
+    headerRight: (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title='Add'
+          iconName={Platform.OS == 'android' ? 'md-create' : 'ios-create'}
+          onPress={() => {
+            navData.navigation.navigate('EditProduct');
+          }}
+        />
+      </HeaderButtons>
+    )
   }
 }
 
