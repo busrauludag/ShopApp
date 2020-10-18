@@ -1,7 +1,7 @@
 import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/cart";
 import { ADD_ORDER } from "../actions/orders";
 
-import CardItem from './../../models/cart-item';
+import CartItem from './../../models/cart-item';
 import { DELETE_PRODUCT } from "../actions/products";
 
 const initialState = {
@@ -12,9 +12,9 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      const addedProduct = action.addedProduct;
+      const addedProduct = action.product;
       const prodPrice = addedProduct.price;
-      const prodTitle = addedProduct.tittle;
+      const prodTitle = addedProduct.title;
 
       let updatedOrNewCartItem;
 
@@ -28,7 +28,7 @@ export default (state = initialState, action) => {
         );
       } else {
         // added new item
-        updatedOrNewCartItem = new CardItem(1, prodPrice, prodTitle, prodPrice);
+        updatedOrNewCartItem = new CartItem(1, prodPrice, prodTitle, prodPrice);
       }
 
       return {
@@ -45,11 +45,11 @@ export default (state = initialState, action) => {
       let updatedCartItems;
       if (currentQty > 1) {
         // need to reduce it, not erase it
-        const updatedCartItem = new CardItem(
+        const updatedCartItem = new CartItem(
           selectedCartItem.quantity - 1,
-          selectedCartItem.prodPrice,
-          selectedCartItem.prodTitle,
-          selectedCartItem.sum - selectedCartItem.prodPrice
+          selectedCartItem.productPrice,
+          selectedCartItem.productTitle,
+          selectedCartItem.sum - selectedCartItem.productPrice
         );
         updatedCartItems = { ...state.items, [action.pid]: updatedCartItem };
       } else {
@@ -60,7 +60,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         items: updatedCartItems,
-        totalAmount: state.totalAmount - selectedCartItem.prodPrice
+        totalAmount: state.totalAmount - selectedCartItem.productPrice
       }
 
     case DELETE_PRODUCT:

@@ -3,7 +3,7 @@ import { FlatList, Button, Platform, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
-import HeaderButton from './../../components/UI/HeaderButton';
+import CustomHeaderButton from './../../components/UI/HeaderButton';
 import ProductItem from './../../components/shop/ProductItem';
 import * as productActions from './../../store/actions/products';
 
@@ -74,7 +74,7 @@ UserProductScreen.navigationOptions = navData => {
   return {
     headertitle: 'Your Products',
     headerLeft: (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item
           title='Menu'
           iconName={Platform.OS == 'android' ? 'md-menu' : 'ios-menu'}
@@ -85,7 +85,7 @@ UserProductScreen.navigationOptions = navData => {
       </HeaderButtons>
     ),
     headerRight: (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item
           title='Add'
           iconName={Platform.OS == 'android' ? 'md-create' : 'ios-create'}

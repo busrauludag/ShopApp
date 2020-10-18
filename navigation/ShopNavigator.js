@@ -7,9 +7,9 @@ import { Ionicons } from '@expo/vector-icons';
 
 import ProductOverviewScreen from './../screens/shop/ProductOverviewScreen';
 import ProductDetailScreen from './../screens/shop/ProductDetailScreen';
-import Orderscreen from './../screens/shop/Orderscreen';
+import OrdersScreen from './../screens/shop/OrdersScreen';
 import CartScreen from './../screens/shop/CartScreen';
-import UserProductScreen from './../screens/user/UserProductScreen';
+import UserProductsScreen from './../screens/user/UserProductsScreen';
 import EditProductScreen from './../screens/user/EditProductScreen';
 
 import Colors from './../constants/colors';
@@ -50,7 +50,7 @@ const ProductsNavigator = createStackNavigator(
 
 const OrdersNavigator = createStackNavigator(
   {
-    Orders: Orderscreen
+    Orders: OrdersScreen
   },
   {
     navigationOptions: {
@@ -68,7 +68,7 @@ const OrdersNavigator = createStackNavigator(
 
 const AdminNavigator = createStackNavigator(
   {
-    UserProducts: UserProductScreen,
+    UserProducts: UserProductsScreen,
     EditProduct: EditProductScreen
   },
   {

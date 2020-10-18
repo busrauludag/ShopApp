@@ -8,7 +8,7 @@ import Card from './../../components/UI/Card';
 import Colors from './../../constants/colors';
 
 import * as cartActions from './../../store/actions/cart';
-import * as orderActions from './../../store/actions/orders';
+import * as ordersActions from './../../store/actions/orders';
 
 const CartScreen = props => {
 
@@ -35,14 +35,17 @@ const CartScreen = props => {
     <View style={styles.screen}>
       <Card style={styles.summary}>
         <Text style={styles.summaryText}>
-          Total: $<Text style={styles.amount}>{Math.round(cartTotalAmount.toFixed(2) * 100) / 100}</Text>
+          Total:{' '}
+          <Text style={styles.amount}>
+            ${Math.round(cartTotalAmount.toFixed(2) * 100) / 100}
+          </Text>
         </Text>
         <Button
           color={Colors.accent}
           title='Order Now'
           disabled={cartItems.length === 0}
           onPress={() => {
-            dispatch(orderActions.addOrder(cartItems, cartTotalAmount))
+            dispatch(ordersActions.addOrder(cartItems, cartTotalAmount))
           }}
         />
       </Card>
@@ -54,7 +57,7 @@ const CartScreen = props => {
           renderItem={itemData => (
             <CartItem
               quantity={itemData.item.quantity}
-              title={itemData.item.title}
+              title={itemData.item.productTitle}
               amount={itemData.item.sum}
               deletable
               onRemove={() => {

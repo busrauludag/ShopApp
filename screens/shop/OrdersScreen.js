@@ -1,23 +1,22 @@
 import React from 'react';
-import { Text, Flatlist, StyleSheet, Platform } from 'react-native';
+import { FlatList, Platform } from 'react-native';
 import { useSelector } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
-import HeaderButton from './../../components/UI/HeaderButton';
-import OrderItem from './../../components/shop/OrderItem';
+import CustomHeaderButton from '../../components/UI/HeaderButton';
+import OrderItem from '../../components/shop/OrderItem';
 
-const OrdersScreen = () => {
-
+const OrdersScreen = props => {
   const orders = useSelector(state => state.orders.orders);
 
   return (
-    <Flatlist
+    <FlatList
       data={orders}
       keyExtractor={item => item.id}
       renderItem={itemData => (
-        <OrderItem 
+        <OrderItem
           amount={itemData.item.totalAmount}
-          date={itemDate.item.readableDate}
+          date={itemData.item.readableDate}
           items={itemData.item.items}
         />
       )}
@@ -25,25 +24,21 @@ const OrdersScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-
-});
-
 OrdersScreen.navigationOptions = navData => {
   return {
-    headertitle: 'Your Orders',
+    headerTitle: 'Your Orders',
     headerLeft: (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item
-          title='Menu'
-          iconName={Platform.OS == 'android' ? 'md-menu' : 'ios-menu'}
+          title="Menu"
+          iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
           onPress={() => {
             navData.navigation.toggleDrawer();
           }}
         />
       </HeaderButtons>
-    ),
-  }
-}
+    )
+  };
+};
 
 export default OrdersScreen;

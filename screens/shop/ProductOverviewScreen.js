@@ -3,7 +3,7 @@ import { View, FlatList, Platform, Button, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
-import HeaderButton from './../../components/UI/HeaderButton';
+import CustomHeaderButton from './../../components/UI/HeaderButton';
 import ProductItem from './../../components/shop/ProductItem';
 import * as cartActions from './../../store/actions/cart';
 
@@ -66,7 +66,7 @@ ProductOverwievScreen.navigationOptions = navData => {
   return {
     headerTitle: 'All Products',
     headerLeft: (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item
           title='Menu'
           iconName={Platform.OS == 'android' ? 'md-menu' : 'ios-menu'}
@@ -77,7 +77,7 @@ ProductOverwievScreen.navigationOptions = navData => {
       </HeaderButtons>
     ),
     headerRight: (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item
           title='Cart'
           iconName={Platform.OS == 'android' ? 'md-cart' : 'ios-cart'}

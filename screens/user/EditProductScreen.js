@@ -11,7 +11,7 @@ import {
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useSelector, useDispatch } from 'react-redux';
 
-import HeaderButton from './../../components/UI/HeaderButton';
+import CustomHeaderButton from './../../components/UI/HeaderButton';
 
 import Colors from './../../constants/colors';
 
@@ -26,24 +26,24 @@ const EditProductScreen = (props) => {
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState(editedProduct ? editedProduct.title : '');
-  const [titleIsValid, setTitleIsValid] = useState(false);
+  // const [titleIsValid, setTitleIsValid] = useState(false);
   const [imageUrl, setImageUrl] = useState(editedProduct ? editedProduct.imageUrl : '');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState(editedProduct ? editedProduct.description : '');
 
   const submitHandler = useCallback(() => {
-    if (!titleIsValid) {
-      Alert.alert(
-        'Wrong input!',
-        'Please check the errors in the form.',
-        [
-          {
-            text: 'Okay'
-          }
-        ]
-      );
-      return;
-    }
+    // if (!titleIsValid) {
+    //   Alert.alert(
+    //     'Wrong input!',
+    //     'Please check the errors in the form.',
+    //     [
+    //       {
+    //         text: 'Okay'
+    //       }
+    //     ]
+    //   );
+    //   return;
+    // }
     if (editedProduct) {
       dispatch(productActions.updateProduct(
         prodId,
@@ -63,17 +63,17 @@ const EditProductScreen = (props) => {
   }, [dispatch, prodId, title, description, imageUrl, price]);
 
   useEffect(() => {
-    props.navigation.setParams({ sunmit: submitHandler });
+    props.navigation.setParams({ submit: submitHandler });
   }, [submitHandler]);
 
-  const titleChangedHandler = text => {
-    if (text.trim().length > 0) {
-      setTitleIsValid(false);
-    } else {
-      setTitleIsValid(true);
-    }
-    setTitle(text)
-  }
+  // const titleChangedHandler = text => {
+  //   if (text.trim().length === 0) {
+  //     setTitleIsValid(false);
+  //   } else {
+  //     setTitleIsValid(true);
+  //   }
+  //   setTitle(text);
+  // }
 
   return (
     <ScrollView>
@@ -83,13 +83,14 @@ const EditProductScreen = (props) => {
           <TextInput
             style={styles.input}
             value={title}
-            onChange={text => setTitle(text)}
-            keyboardType='default'
-            autoCapitalize='sentences'
-            autoCorrect
-            returnKeyType='next'
+            onChange={(text) => setTitle(text)}
+            // onChangeText={titleChangedHandler}
+            // keyboardType='default'
+            // autoCapitalize='sentences'
+            // autoCorrect
+            // returnKeyType='next'
           />
-          {!titleIsValid && <Text>Please enter a valid title!</Text>}
+          {/* {!titleIsValid && <Text>Please enter a valid title!</Text>} */}
         </View>
         <View style={styles.formControl}>
           <Text style={styles.label}>Image Url</Text>
@@ -128,7 +129,7 @@ EditProductScreen.navigationOptions = navData => {
   return {
     headerTitle: navData.navigation.getParam('productId') ? 'Edit Product' : 'Add Product',
     headerRight: (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item
           title='Save'
           iconName={Platform.OS == 'android' ? 'md-checkmark' : 'ios-checkmark'}
