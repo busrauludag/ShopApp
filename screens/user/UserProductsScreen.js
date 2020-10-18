@@ -8,7 +8,6 @@ import ProductItem from './../../components/shop/ProductItem';
 import * as productActions from './../../store/actions/products';
 
 import Colors from './../../constants/colors';
-import { accessibilityProps } from 'react-native-paper/lib/typescript/src/components/MaterialCommunityIcon';
 
 const UserProductScreen = (props) => {
   const userProducts = useSelector(state => state.products.userProducts);

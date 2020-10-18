@@ -5,6 +5,7 @@ const Colors = {
   accent: '#ffc107',
   darkGrey: '#888',
   red: 'red',
+  gray: '#ccc'
 }
 
 export default Colors;
