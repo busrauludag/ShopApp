@@ -2,9 +2,10 @@ import React from 'react';
 import { View, Text, FlatList, Button, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Colors from './../../constants/colors';
-
 import CartItem from './../../components/shop/CartItem';
+import Card from './../../components/UI/Card';
+
+import Colors from './../../constants/colors';
 
 import * as cartActions from './../../store/actions/cart';
 import * as orderActions from './../../store/actions/orders';
@@ -32,7 +33,7 @@ const CartScreen = props => {
 
   return (
     <View style={styles.screen}>
-      <View style={styles.summary}>
+      <Card style={styles.summary}>
         <Text style={styles.summaryText}>
           Total: $<Text style={styles.amount}>{Math.round(cartTotalAmount.toFixed(2) * 100) / 100}</Text>
         </Text>
@@ -44,7 +45,7 @@ const CartScreen = props => {
             dispatch(orderActions.addOrder(cartItems, cartTotalAmount))
           }}
         />
-      </View>
+      </Card>
       <View>
         <Text>Cart Items</Text>
         <FlatList
@@ -78,13 +79,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 20,
     padding: 10,
-    shadowColor: Colors.black,
-    shadowOpacity: 0.26,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 8,
-    elevation: 5,
-    borderRadius: 10,
-    backgroundColor: Colors.white,
+    // shadowColor: Colors.black,
+    // shadowOpacity: 0.26,
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowRadius: 8,
+    // elevation: 5,
+    // borderRadius: 10,
+    // backgroundColor: Colors.white,
   },
   summaryText: {
     fontFamily: 'open-sans-bold',
